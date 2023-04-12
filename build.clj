@@ -35,7 +35,10 @@
 (def jar-file (format "target/%s-%s.jar" (name lib) version))
 
 (defn- next-tag []
-  (format "v%s.%s" base-version (b/git-count-revs nil)))
+  (let [n (-> (b/git-count-revs nil)
+              parse-long
+              inc)]
+    (format "v%s.%s" base-version n)))
 
 (defn info [_]
   (println "Version: " version)

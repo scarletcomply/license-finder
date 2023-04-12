@@ -6,16 +6,10 @@ on:
       - main
     tags:
       - 'v*'
-    paths-ignore:
-      - '**.md'
-      - 'doc/**'
 
   pull_request:
     branches:
       - main
-    paths-ignore:
-      - '**.md'
-      - 'doc/**' 
 
 jobs:
   test:
