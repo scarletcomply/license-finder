@@ -7,4 +7,7 @@
  :aliases {:dev    {:extra-paths ["dev"]}
            :test   {:extra-paths ["test"]}
            :kaocha {:extra-deps {lambdaisland/kaocha {:mvn/version "1.80.1274"}}
-                    :main-opts  ["-m" "kaocha.runner"]}}}
+                    :main-opts  ["-m" "kaocha.runner"]}
+           :build  {:deps {io.github.clojure/tools.build {:mvn/version "0.9.3"}
+                           slipset/deps-deploy           {:mvn/version "0.2.0"}}
+                    :ns-default build}}}

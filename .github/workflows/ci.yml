@@ -15,6 +15,9 @@ on:
       - '**.md'
       - 'doc/**'
 
+  tags:
+      - 'v*'
+
 jobs:
   test:
     name: Test Clojure
@@ -23,3 +26,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
       - run: bb test
+      - run: bb jar
+      - name: Deploy Jars
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        run: bb deploy
+        env:
+          CLOJARS_USERNAME: scarlet
+          CLOJARS_PASSWORD: ${{ secrets.CLOJARS_DEPLOY_TOKEN }}

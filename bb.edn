@@ -1,1 +1,3 @@
-{:tasks {test (clojure "-M:test:kaocha")}}
+{:tasks {test   (clojure "-M:test:kaocha")
+         jar    (clojure "-T:build" "jar")
+         deploy (clojure "-T:build" "deploy")}}

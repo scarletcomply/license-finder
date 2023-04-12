@@ -3,4 +3,6 @@
 .cpcache/
 .portal/
 
+target/
+
 .nrepl-port
