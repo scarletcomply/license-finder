@@ -1,6 +1,6 @@
 # license-finder
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/scarletcomply/license-finder/main.yml?branch=main)](https://github.com/scarletcomply/license-finder/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/scarletcomply/license-finder/ci.yml?branch=main)](https://github.com/scarletcomply/license-finder/actions)
 [![cljdoc](https://cljdoc.org/badge/com.scarletcomply/license-finder)][cljdoc]
 [![Clojars](https://img.shields.io/clojars/v/com.scarletcomply/license-finder.svg)][clojars]
 
