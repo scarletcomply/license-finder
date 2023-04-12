@@ -4,22 +4,30 @@
 [![cljdoc](https://cljdoc.org/badge/com.scarletcomply/license-finder)][cljdoc]
 [![Clojars](https://img.shields.io/clojars/v/com.scarletcomply/license-finder.svg)][clojars]
 
-Finds licenses of your Clojure(Script) dependencies.
+## Overview
 
-Works with:
+`license-finder` is a Clojure library that finds the licenses of the dependencies used in your Clojure(Script) projects. The library supports `deps.edn`, `shadow-cljs.edn`, and `package.json` (with npm's `package-lock.json`). With it, you can easily generate a report of the licenses used by your project's dependencies, making it easier to comply with open source licenses and legal requirements.
 
-- `deps.edn`
-- `shadow-cljs.edn`
-- `package.json` (with npm's `package-lock.json`)
+
+## Use Cases
+
+`license-finder` can be useful in a variety of situations. For example:
+
+- If you are building a project for a client or an employer, you may need to provide a report of the licenses used by the project's dependencies to ensure compliance with open source licenses and legal requirements.
+- If you are working on an open source project, you may want to provide a report of the licenses used by the project's dependencies to help potential contributors understand the project's licensing requirements.
+- If you are a developer who is concerned about the licenses of the dependencies used by your projects, license-finder can help you quickly and easily generate a report of the licenses used by those dependencies.
 
 ## Usage
 
-Use `scarlet.license-finder.core/find-licenses` to get license information of
-dependencies in a project file:
+To use `license-finder`, require the `find-licenses` function from the `scarlet.license-finder.core` namespace:
 
 ```clojure
 (require '[scarlet.license-finder.core :refer [find-licenses]])
+```
 
+You can then use `find-licenses` to get license information of dependencies in a project file:
+
+```clojure
 (find-licenses "deps.edn")
 ;; => ({:name "babashka/fs"
 ;;      :type :mvn
@@ -38,17 +46,21 @@ dependencies in a project file:
 ;;     ,,,)
 ```
 
-To consider all dependencies used by your project, add
-the `:transitive? true` option:
+By default, `find-licenses` only considers the direct dependencies of the project. If you want to include transitive dependencies, pass `:transitive? true` as an option:
+
 
 ```clojure
 (find-licenses "deps.edn" :transitive? true)
 ```
 
-You can create a CSV report of your licenses, e.g. in Continuous Integration,
-use `scarlet.license-finder.report/write-csv`.
 
-Here is an example on how to integrate license-finder in `tools.build`:
+### Generating a License Report
+
+You can create a CSV report of your licenses, e.g. in Continuous Integration,
+with `scarlet.license-finder.report/write-csv`.
+
+
+Here is an example on how to integrate `license-finder` in `tools.build`:
 
 ```clojure
 (ns build
@@ -61,7 +73,7 @@ Here is an example on how to integrate license-finder in `tools.build`:
        (report/write-report {:project project})))
 ```
 
-Now you can generate a license report via the command line:
+You can then generate a license report via the command line:
 
 ```
 > clojure -T:build licenses
