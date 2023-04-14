@@ -87,22 +87,23 @@ Releases are available from [Clojars][clojars].
 deps.edn:
 
 ```clojure
-com.scarletcomply/license-finder {:mvn/version "0.1.5"}
+com.scarletcomply/license-finder {:mvn/version "0.1.9"}
 ```
 
 Leiningen/Boot:
 
 ```clojure
-[com.scarletcomply/license-finder "0.1.5"]
+[com.scarletcomply/license-finder "0.1.9"]
 ```
 
 ## License
 
-Copyright 2023 [Scarlet]  
-Distributed under the [MIT License].
+Distributed under the [MIT License].  
+Copyright (c) 2023 [Scarlet Global Holdings Ltd][scarlet]
+
 
 [MIT License]: ./LICENSE
-[Scarlet]: https://scarletcomply.com
+[scarlet]: https://scarletcomply.com
 
 [cljdoc]: https://cljdoc.org/jump/release/com.scarletcomply/license-finder
 [clojars]: https://clojars.org/com.scarletcomply/license-finder
