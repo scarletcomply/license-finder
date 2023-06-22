@@ -1,7 +1,8 @@
 (ns scarlet.license-finder.deps
   (:require [babashka.fs :as fs]
-            [scarlet.license-finder.deps.shadow-cljs :as shadow-cljs]
+            [scarlet.license-finder.deps.lein :as lein]
             [scarlet.license-finder.deps.npm :as npm]
+            [scarlet.license-finder.deps.shadow-cljs :as shadow-cljs]
             [scarlet.license-finder.deps.tools-deps :as tools-deps]))
 
 (defmulti find-dependencies
@@ -39,3 +40,7 @@
 (defmethod find-dependencies "package.json"
   [file-path opts]
   (npm/find-dependencies file-path opts))
+
+(defmethod find-dependencies "project.clj"
+  [file-path opts]
+  (lein/find-dependencies file-path opts))

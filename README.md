@@ -6,7 +6,7 @@
 
 ## Overview
 
-`license-finder` is a Clojure library that finds the licenses of the dependencies used in your Clojure(Script) projects. The library supports `deps.edn`, `shadow-cljs.edn`, and `package.json` (with npm's `package-lock.json`). With it, you can easily generate a report of the licenses used by your project's dependencies, making it easier to comply with open source licenses and legal requirements.
+`license-finder` is a Clojure library that finds the licenses of the dependencies used in your Clojure(Script) projects. The library supports `deps.edn`, `shadow-cljs.edn`, `package.json` (with npm's `package-lock.json`) and `project.clj` (Using Borkdude's lein2deps to convert the project and extract licenses). With it, you can easily generate a report of the licenses used by your project's dependencies, making it easier to comply with open source licenses and legal requirements.
 
 
 ## Use Cases
@@ -87,13 +87,13 @@ Releases are available from [Clojars][clojars].
 deps.edn:
 
 ```clojure
-com.scarletcomply/license-finder {:mvn/version "0.1.9"}
+com.scarletcomply/license-finder {:mvn/version "0.2.0"}
 ```
 
 Leiningen/Boot:
 
 ```clojure
-[com.scarletcomply/license-finder "0.1.9"]
+[com.scarletcomply/license-finder "0.2.0"]
 ```
 
 ## License
