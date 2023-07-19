@@ -9,6 +9,12 @@ All notable changes to this project will be documented in this file.
 <!-- ### Changed -->
 <!-- ### Removed -->
 
+## [0.2.1] - 2023-07-19
+
+### Fixed
+
+- Changed how we depends on lein2deps from a git to maven dependency
+
 ## [0.2.0] - 2023-06-21
 
 ### Added
