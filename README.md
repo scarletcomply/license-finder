@@ -87,13 +87,13 @@ Releases are available from [Clojars][clojars].
 deps.edn:
 
 ```clojure
-com.scarletcomply/license-finder {:mvn/version "0.2.0"}
+com.scarletcomply/license-finder {:mvn/version "0.2.1"}
 ```
 
 Leiningen/Boot:
 
 ```clojure
-[com.scarletcomply/license-finder "0.2.0"]
+[com.scarletcomply/license-finder "0.2.1"]
 ```
 
 ## License
