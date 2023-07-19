@@ -37,7 +37,8 @@ All notable changes to this project will be documented in this file.
 
 - First public release
 
-[unreleased]: https://github.com/scarletcomply/license-finder/compare/v0.2.0...HEAD
+[unreleased]: https://github.com/scarletcomply/license-finder/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/scarletcomply/license-finder/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/scarletcomply/license-finder/compare/v0.1.9...v0.2.0
 [0.1.9]: https://github.com/scarletcomply/license-finder/compare/v0.1.5...v0.1.9
 [0.1.5]: https://github.com/scarletcomply/license-finder/releases/tag/v0.1.5
