@@ -5,6 +5,7 @@
          org.clojure/data.csv          {:mvn/version "1.0.1"}
          org.clojure/data.json         {:mvn/version "2.4.0"}
          org.clojure/tools.deps.alpha  {:mvn/version "0.15.1254"}}
+ :tools/usage {:ns-default scarlet.license-finder.tool}
  :aliases {:dev    {:extra-paths ["dev"]}
            :test   {:extra-paths ["test"]}
            :kaocha {:extra-deps {lambdaisland/kaocha {:mvn/version "1.80.1274"}}
