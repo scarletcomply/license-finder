@@ -15,30 +15,24 @@
    (:name license)
    (:url license)])
 
-(defn- prep-out-path
-  [{:keys [project format out-file]
-    :or   {format :csv}}]
-  (let [filename (str project "." (name format))
-        path (or out-file
-                 (->> filename
-                      (fs/path "./target/licenses")
-                      (fs/normalize)))]
+(defn- prep-path
+  [{:keys [path]}]
+  (let [path (-> path
+                 fs/path
+                 fs/normalize)]
     (when-let [dir (fs/parent path)]
       (fs/create-dirs dir))
     (println "Licenses written to" (str path))
     path))
 
 (defn- prep-writer
-  "Get a io/writer for a given out-file.
-
-  Create a holding directory if it doesn't exist. The `out-file` value
-  `:stdout` is treated as a special value for printing to the standard
-  output."
-  [{:keys [out-file] :as options}]
+  "Get a io/writer for a given path, make parent directories as needed.
+  Path value `:stdout` creates a writer with the standard output."
+  [{:keys [path] :as options}]
   (cond
-    (= out-file :stdout) {:writer *out* :close? false}
+    (= path :stdout) {:writer *out* :close? false}
     :else {:writer (-> options
-                       prep-out-path
+                       prep-path
                        fs/file
                        io/writer)
            :close? true}))
