@@ -19,6 +19,42 @@
 
 ## Usage
 
+### Clojure CLI Tool
+
+Starting from Clojure CLI v1.11.1.1139,
+[tool](https://clojure.org/reference/deps_and_cli#tool_install)
+installation is supported.
+
+```bash
+# Install tool (latest version)
+clojure -Ttools install-latest :lib com.github.scarletcomply/license-finder :as license-finder
+
+# Install tool (certain version)
+clojure -Ttools com.github.scarletcomply/license-finder '{:git/sha "..."}' :as license-finder
+
+# Remove tool
+clojure -Ttools remove :tool license-finder
+
+# Update tool
+clojure -Ttools install-latest :tool license-finder
+
+# Generate report with sensible defaults
+clojure -Tlicense-finder report
+
+# Generate report for all dependencies including transitive ones,
+# print report to standard output
+clojure -Tlicense-finder report :transitive? true :path :stdout
+
+# Generate report for absolute paths
+# (watch out double quotes inside single ones!)
+clojure -Tlicense-finder report \
+    :project '"/home/me/git/license-finder/deps.edn"' \
+    :path '"/home/me/licenses.csv"' \
+    :transitive? true
+```
+
+### In your code
+
 To use `license-finder`, require the `find-licenses` function from the `scarlet.license-finder.core` namespace:
 
 ```clojure
@@ -53,12 +89,10 @@ By default, `find-licenses` only considers the direct dependencies of the projec
 (find-licenses "deps.edn" :transitive? true)
 ```
 
-
-### Generating a License Report
+### Generating report programmatically
 
 You can create a CSV report of your licenses, e.g. in Continuous Integration,
 with `scarlet.license-finder.report/write-csv`.
-
 
 Here is an example on how to integrate `license-finder` in `tools.build`:
 
@@ -67,17 +101,19 @@ Here is an example on how to integrate `license-finder` in `tools.build`:
   (:require [scarlet.license-finder.core :as license-finder]
             [scarlet.license-finder.report :as report]))
 
-(defn licenses [{:keys [project]
-                 :or   {project "./deps.edn"}}]
+(defn licenses [{:keys [project format path]
+                 :or   {project "./deps.edn"
+                        format :csv
+                        path "./target/licenses/deps.csv"}}]
   (->> (license-finder/find-licenses project :transitive? true)
-       (report/write-report {:project project})))
+       (report/generate-report {:format format :path path})))
 ```
 
 You can then generate a license report via the command line:
 
 ```
 > clojure -T:build licenses
-Licenses written to target/licenses/deps.edn.csv
+Licenses written to target/licenses/deps.csv
 ```
 
 ## Installation
@@ -98,8 +134,8 @@ Leiningen/Boot:
 
 ## License
 
-Distributed under the [MIT License].  
-Copyright (c) 2023 [Scarlet Global Holdings Ltd][scarlet]
+Distributed under the [MIT License].
+Copyright (c) 2023 [Scarlet Global Holdings Ltd][scarlet] and contributors
 
 
 [MIT License]: ./LICENSE

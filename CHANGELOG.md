@@ -9,6 +9,11 @@ All notable changes to this project will be documented in this file.
 <!-- ### Changed -->
 <!-- ### Removed -->
 
+### Added
+
+- Installation as a Clojure CLI [tool](https://clojure.org/reference/deps_and_cli#tool_install) by [pilosus](https://github.com/pilosus)
+- Report generation to a standard output by [pilosus](https://github.com/pilosus)
+
 ## [0.2.1] - 2023-07-19
 
 ### Fixed
