@@ -56,30 +56,12 @@
 (defmethod generate-report :default [options deps]
   (format-csv options deps))
 
-;; FIXME Do we maintain backward compat at this point?
-;; FIXME If so, fix version in deprecated meta as needed
+;; Backward compatibility
 
-(defn- ^{:deprecated "0.3"} write-csv
-  [file-path deps]
-  (with-open [writer (io/writer (fs/file file-path))]
-    (->> deps
-         (map (fn [{:keys [version type license]
-                    dep-name :name}]
-                [dep-name
-                 version
-                 (name type)
-                 (:id license)
-                 (:name license)
-                 (:url license)]))
-         (cons ["Dependency" "Version" "Type"
-                "License ID" "License Name" "License URL"])
-         (csv/write-csv writer))))
-
-(defn ^{:deprecated "0.3"} write-report
-  [{:keys [project out-file]} deps]
-  (let [out-file (or out-file
-                     (fs/normalize (fs/path "./target/licenses" (str project ".csv"))))]
-    (when-let [dir (fs/parent out-file)]
-      (fs/create-dirs dir))
-    (write-csv out-file deps)
-    (println "Licenses written to" (str out-file))))
+(defn ^{:deprecated "0.3.0"} write-report
+  [{:keys [project out-file format]} deps]
+  (let [format (or format :csv)
+        path (or out-file
+                 (fs/path "./target/licenses" (str project "." (name format))))
+        opts {:path path :format format}]
+    (format-csv opts deps)))
