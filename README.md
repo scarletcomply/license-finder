@@ -43,14 +43,13 @@ clojure -Tlicense-finder report
 
 # Generate report for all dependencies including transitive ones,
 # print report to standard output
-clojure -Tlicense-finder report :transitive? true :path :stdout
+clojure -Tlicense-finder report :transitive? true :out :stdout
 
-# Generate report for absolute paths
-# (watch out double quotes inside single ones!)
+# Generate report for absolute paths (watch the quoting!)
 clojure -Tlicense-finder report \
     :project '"/home/me/git/license-finder/deps.edn"' \
-    :path '"/home/me/licenses.csv"' \
-    :transitive? true
+    :out '"/home/me/licenses.csv"' \
+    ':transitive?' true
 ```
 
 ### In your code
@@ -102,18 +101,16 @@ Here is an example on how to integrate `license-finder` in `tools.build`:
             [scarlet.license-finder.report :as report]))
 
 (defn licenses [{:keys [project format path]
-                 :or   {project "./deps.edn"
-                        format :csv
-                        path "./target/licenses/deps.csv"}}]
+                 :or   {project "./deps.edn"}}]
   (->> (license-finder/find-licenses project :transitive? true)
-       (report/generate-report {:format format :path path})))
+       (report/write-report {:format format})))
 ```
 
 You can then generate a license report via the command line:
 
 ```
 > clojure -T:build licenses
-Licenses written to target/licenses/deps.csv
+Licenses written to target/licenses/deps.edn.csv
 ```
 
 ## Installation
