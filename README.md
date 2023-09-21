@@ -134,8 +134,8 @@ Leiningen/Boot:
 
 ## License
 
-Distributed under the [MIT License].
-Copyright (c) 2023 [Scarlet Global Holdings Ltd][scarlet] and contributors
+Distributed under the [MIT License].  
+Copyright (c) 2023 [Scarlet Global Holdings Ltd][scarlet], and contributors.
 
 
 [MIT License]: ./LICENSE
