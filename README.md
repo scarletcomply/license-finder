@@ -100,10 +100,10 @@ Here is an example on how to integrate `license-finder` in `tools.build`:
   (:require [scarlet.license-finder.core :as license-finder]
             [scarlet.license-finder.report :as report]))
 
-(defn licenses [{:keys [project format path]
+(defn licenses [{:keys [project]
                  :or   {project "./deps.edn"}}]
   (->> (license-finder/find-licenses project :transitive? true)
-       (report/write-report {:format format})))
+       (report/write-report {:project project})))
 ```
 
 You can then generate a license report via the command line:
