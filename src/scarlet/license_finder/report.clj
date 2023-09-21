@@ -3,9 +3,11 @@
             [clojure.data.csv :as csv]
             [clojure.java.io :as io]))
 
-(def headers ["Dependency" "Version" "Type" "License ID" "License Name" "License URL"])
+(def ^:private csv-headers
+  ["Dependency" "Version" "Type"
+   "License ID" "License Name" "License URL"])
 
-(defn- dep->vec
+(defn- csv-row
   "Return a flat vector with dependency's data out of a nested map"
   [{:keys [version type license] dep-name :name}]
   [dep-name
@@ -15,53 +17,22 @@
    (:name license)
    (:url license)])
 
-(defn- prep-path
-  [{:keys [path]}]
-  (let [path (-> path
-                 fs/path
-                 fs/normalize)]
-    (when-let [dir (fs/parent path)]
-      (fs/create-dirs dir))
-    (println "Licenses written to" (str path))
-    path))
+(defn- write-csv [writer deps _opts]
+  (->> deps
+       (map csv-row)
+       (cons csv-headers)
+       (csv/write-csv writer)))
 
-(defn- prep-writer
-  "Get a io/writer for a given path, make parent directories as needed.
-  Path value `:stdout` creates a writer with the standard output."
-  [{:keys [path] :as options}]
-  (cond
-    (= path :stdout) {:writer *out* :close? false}
-    :else {:writer (-> options
-                       prep-path
-                       fs/file
-                       io/writer)
-           :close? true}))
-
-(defn- format-csv [options deps]
-  (let [{:keys [writer close?]} (prep-writer options)]
-    (->> deps
-         (map dep->vec)
-         (cons headers)
-         (csv/write-csv writer))
-    (when close?
-      (.close writer))))
-
-;; Support new report formats by adding new defmethods
-
-(defmulti generate-report
-  "Generate and write a report for a given format"
-  (fn [options _]
-    (get options :format)))
-
-(defmethod generate-report :default [options deps]
-  (format-csv options deps))
-
-;; Backward compatibility
-
-(defn ^{:deprecated "0.3.0"} write-report
-  [{:keys [project out-file format]} deps]
-  (let [format (or format :csv)
-        path (or out-file
-                 (fs/path "./target/licenses" (str project "." (name format))))
-        opts {:path path :format format}]
-    (format-csv opts deps)))
+(defn write-report
+  [{:keys [project out out-file] :as opts} deps]
+  (if (= :stdout out)
+    (write-csv *out* deps opts)
+    (let [file-path (or out
+                        out-file ; for compatibility
+                        (fs/normalize (fs/path "./target/licenses"
+                                               (str project ".csv"))))]
+      (when-let [dir (fs/parent file-path)]
+        (fs/create-dirs dir))
+      (with-open [writer (io/writer (fs/file file-path))]
+        (write-csv writer deps opts))
+      (println "Licenses written to" (str file-path)))))
