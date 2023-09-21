@@ -30,7 +30,7 @@ installation is supported.
 clojure -Ttools install-latest :lib com.github.scarletcomply/license-finder :as license-finder
 
 # Install tool (certain version)
-clojure -Ttools com.github.scarletcomply/license-finder '{:git/sha "..."}' :as license-finder
+clojure -Ttools com.github.scarletcomply/license-finder '{:git/tag "v0.3.0"}' :as license-finder
 
 # Remove tool
 clojure -Ttools remove :tool license-finder
@@ -120,13 +120,13 @@ Releases are available from [Clojars][clojars].
 deps.edn:
 
 ```clojure
-com.scarletcomply/license-finder {:mvn/version "0.2.1"}
+com.scarletcomply/license-finder {:mvn/version "0.3.0"}
 ```
 
 Leiningen/Boot:
 
 ```clojure
-[com.scarletcomply/license-finder "0.2.1"]
+[com.scarletcomply/license-finder "0.3.0"]
 ```
 
 ## License
