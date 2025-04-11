@@ -1,6 +1,6 @@
 (ns scarlet.license-finder.deps.lein
   (:require [babashka.fs :as fs]
-            [clojure.tools.deps.alpha :as deps]
+            [clojure.tools.deps :as deps]
             [lein2deps.api :as lein-deps]
             [scarlet.license-finder.deps.tools-deps :as tools-deps]))
 

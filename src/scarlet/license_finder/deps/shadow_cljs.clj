@@ -1,8 +1,8 @@
 (ns scarlet.license-finder.deps.shadow-cljs
   (:require [babashka.fs :as fs]
             [clojure.edn :as edn]
-            [clojure.tools.deps.alpha :as deps]
-            [clojure.tools.deps.alpha.util.dir :as deps-dir]
+            [clojure.tools.deps :as deps]
+            [clojure.tools.deps.util.dir :as deps-dir]
             [scarlet.license-finder.deps.tools-deps :as tools-deps]))
 
 (defn- read-edn [file]

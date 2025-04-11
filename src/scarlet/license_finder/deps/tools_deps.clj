@@ -1,8 +1,8 @@
 (ns scarlet.license-finder.deps.tools-deps
   (:require [babashka.fs :as fs]
-            [clojure.tools.deps.alpha :as deps]
-            [clojure.tools.deps.alpha.extensions :as deps-ext]
-            [clojure.tools.deps.alpha.util.dir :as deps-dir]))
+            [clojure.tools.deps :as deps]
+            [clojure.tools.deps.extensions :as deps-ext]
+            [clojure.tools.deps.util.dir :as deps-dir]))
 
 (defn basis-deps
   "Returns a seq of deps maps from a basis map."
