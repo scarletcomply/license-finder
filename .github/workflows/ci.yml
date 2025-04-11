@@ -16,7 +16,7 @@ jobs:
     name: Build and Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.2.2
       - uses: ./.github/actions/setup
       - run: bb test
       - run: bb jar
