@@ -113,6 +113,30 @@ You can then generate a license report via the command line:
 Licenses written to target/licenses/deps.edn.csv
 ```
 
+
+### As an alias
+
+If you don't want to or cannot install license-finder as a tool, you can use from `deps.edn` as an alias:
+
+``` clojure
+:build/extract-licenses
+{:replace-deps {com.github.scarletcomply/license-finder {:git/tag "v0.3.0"
+                                                         :git/sha "16e0560"}}
+ :exec-fn      scarlet.license-finder.tool/report}
+```
+
+OR
+
+``` clojure
+:build/extract-licenses
+{:replace-deps {com.github.scarletcomply/license-finder {:git/tag "v0.3.0"
+                                                         :git/sha "16e0560"}}
+ :exec-fn      scarlet.license-finder.tool/report
+ :exec-args    {:transitive? true}}
+```
+
+Use like this: `clojure -X:build/extract-licenses :out '"./deps.edn.csv"'`
+
 ## Installation
 
 Releases are available from [Clojars][clojars].
