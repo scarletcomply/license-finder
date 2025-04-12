@@ -24,7 +24,9 @@
    glob `patterns`."
   [^FileSystem fs dir-path patterns]
   (let [matchers (map (fn [^String pattern]
-                        (.getPathMatcher fs (str "glob:" pattern)))
+                        ;; The path that will be matched against the pattern contains a full canonicalPath.
+                        ;; The patterns must therefore cater for the dir-path prefix, when setting up the glob
+                        (.getPathMatcher fs (str "glob:" dir-path java.io.File/separator pattern)))
                       patterns)
         matches? (fn [^Path path]
                    (some (fn [^PathMatcher m]
