@@ -12,19 +12,12 @@
     (when (and (zero? exit) out)
       (str/trim-newline out))))
 
-(defn- git-tag []
-  (git "describe" "--tags" "--exact-match"))
-
 (def lib 'com.scarletcomply/license-finder)
-(def base-version "0.1")
 
 (def repo-url (str "https://github.com/scarletcomply/license-finder"))
 
-(def tagged  (git-tag))
-(def version (if tagged
-               (str/replace tagged #"^v" "")
-               (format "%s.%s-%s" base-version (b/git-count-revs nil)
-                       (if (System/getenv "CI") "ci" "dev"))))
+(def tagged  (git "describe" "--tags" "--exact-match"))
+(def version (str/replace (or tagged (git "describe" "--tags")) #"^v" ""))
 
 (def scm {:connection (str "scm:git:" repo-url)
           :tag        (or tagged "HEAD")
@@ -34,25 +27,11 @@
 (def basis (b/create-basis {:project "deps.edn"}))
 (def jar-file (format "target/%s-%s.jar" (name lib) version))
 
-(defn- next-tag []
-  (let [n (-> (b/git-count-revs nil)
-              parse-long
-              inc)]
-    (format "v%s.%s" base-version n)))
-
-(defn info [_]
-  (println "Version: " version)
-  (println "Next tag:" (next-tag)))
-
-(defn tag [_]
-  (let [tag (format "v%s.%s" base-version (b/git-count-revs nil))]
-    (git "tag" "-m" (str "Release " tag) tag)
-    (println "Tagged" tag)))
-
 (defn clean "Clean the target directory." [_]
   (b/delete {:path "target"}))
 
 (defn jar [_]
+  (println jar-file)
   (b/write-pom {:class-dir class-dir
                 :lib lib
                 :version version
