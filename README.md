@@ -17,6 +17,22 @@
 - If you are working on an open source project, you may want to provide a report of the licenses used by the project's dependencies to help potential contributors understand the project's licensing requirements.
 - If you are a developer who is concerned about the licenses of the dependencies used by your projects, license-finder can help you quickly and easily generate a report of the licenses used by those dependencies.
 
+## Installation
+
+Releases are available from [Clojars][clojars].
+
+deps.edn:
+
+```clojure
+com.scarletcomply/license-finder {:mvn/version "0.4.0"}
+```
+
+Leiningen/Boot:
+
+```clojure
+[com.scarletcomply/license-finder "0.4.0"]
+```
+
 ## Usage
 
 ### Clojure CLI Tool
@@ -27,10 +43,10 @@ installation is supported.
 
 ```bash
 # Install tool (latest version)
-clojure -Ttools install-latest :lib com.github.scarletcomply/license-finder :as license-finder
+clojure -Ttools install-latest :lib io.github.scarletcomply/license-finder :as license-finder
 
 # Install tool (certain version)
-clojure -Ttools com.github.scarletcomply/license-finder '{:git/tag "v0.3.0"}' :as license-finder
+clojure -Ttools install io.github.scarletcomply/license-finder '{:git/tag "v0.4.0"}' :as license-finder
 
 # Remove tool
 clojure -Ttools remove :tool license-finder
@@ -113,15 +129,13 @@ You can then generate a license report via the command line:
 Licenses written to target/licenses/deps.edn.csv
 ```
 
-
 ### As an alias
 
 If you don't want to or cannot install license-finder as a tool, you can use from `deps.edn` as an alias:
 
 ``` clojure
 :build/extract-licenses
-{:replace-deps {com.github.scarletcomply/license-finder {:git/tag "v0.3.0"
-                                                         :git/sha "16e0560"}}
+{:replace-deps {com.scarletcomply/license-finder {:mvn/version "0.4.0"}}
  :exec-fn      scarlet.license-finder.tool/report}
 ```
 
@@ -129,29 +143,12 @@ OR
 
 ``` clojure
 :build/extract-licenses
-{:replace-deps {com.github.scarletcomply/license-finder {:git/tag "v0.3.0"
-                                                         :git/sha "16e0560"}}
+{:replace-deps {com.scarletcomply/license-finder {:mvn/version "0.4.0"}}
  :exec-fn      scarlet.license-finder.tool/report
  :exec-args    {:transitive? true}}
 ```
 
 Use like this: `clojure -X:build/extract-licenses :out '"./deps.edn.csv"'`
-
-## Installation
-
-Releases are available from [Clojars][clojars].
-
-deps.edn:
-
-```clojure
-com.scarletcomply/license-finder {:mvn/version "0.3.0"}
-```
-
-Leiningen/Boot:
-
-```clojure
-[com.scarletcomply/license-finder "0.3.0"]
-```
 
 ## License
 
