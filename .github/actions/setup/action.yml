@@ -1,18 +1,6 @@
 runs:
   using: "composite"
   steps:
-    - name: Set up Clojure cache
-      uses: actions/cache@v3
-      id: clojure-cache
-      with:
-        path: |
-          ~/.m2/repository
-          ~/.gitlibs
-          ~/.deps.clj
-        key: ${{ runner.os }}-clojure-${{ hashFiles('**/deps.edn', 'bb.edn') }}
-        restore-keys: |
-          ${{ runner.os }}-clojure-
-
     - name: Set up Java
       uses: actions/setup-java@v3
       with:
@@ -20,9 +8,19 @@ runs:
         java-version: '21'
   
     - name: Set up Clojure and Babashka
-      uses: DeLaGuardo/setup-clojure@05cb4bfdf57855f122e75b71e45224775cdfc4a0 # Pinned: 9.5
+      uses: DeLaGuardo/setup-clojure@ada62bb3282a01a296659d48378b812b8e097360 # Pinned: 13.2
       with:
         # https://clojure.org/releases/tools
         cli: '1.12.0.1530'
         # https://github.com/babashka/babashka/releases
         bb: '1.12.197'
+
+    - name: Cache clojure dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.m2/repository
+          ~/.gitlibs
+          ~/.deps.clj
+        key: cljdeps-${{ hashFiles('deps.edn') }}
+        restore-keys: cljdeps-
