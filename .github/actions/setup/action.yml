@@ -23,6 +23,6 @@ runs:
       uses: DeLaGuardo/setup-clojure@05cb4bfdf57855f122e75b71e45224775cdfc4a0 # Pinned: 9.5
       with:
         # https://clojure.org/releases/tools
-        cli: '1.11.1.1182'
+        cli: '1.12.0.1530'
         # https://github.com/babashka/babashka/releases
-        bb: '1.0.164'
+        bb: '1.12.197'

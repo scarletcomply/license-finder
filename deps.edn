@@ -2,6 +2,7 @@
  :deps  {babashka/fs                   {:mvn/version "0.5.24"}
          io.github.borkdude/lein2deps  {:mvn/version "0.1.1"}
          io.github.clojure/tools.build {:mvn/version "0.10.8"}
+         org.clojure/clojure           {:mvn/version "1.12.0"}
          org.clojure/data.csv          {:mvn/version "1.1.0"}
          org.clojure/data.json         {:mvn/version "2.5.1"}
          org.clojure/tools.deps        {:mvn/version "0.23.1512"}}
