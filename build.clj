@@ -17,7 +17,10 @@
 (def repo-url (str "https://github.com/scarletcomply/license-finder"))
 
 (def tagged  (git "describe" "--tags" "--exact-match"))
-(def version (str/replace (or tagged (git "describe" "--tags")) #"^v" ""))
+(def version (str/replace (or tagged
+                              (git "describe" "--tags")
+                              (git "rev-parse" "--short" "HEAD"))
+                          #"^v" ""))
 
 (def scm {:connection (str "scm:git:" repo-url)
           :tag        (or tagged "HEAD")
